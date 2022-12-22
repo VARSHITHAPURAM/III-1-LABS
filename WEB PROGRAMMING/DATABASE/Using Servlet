@@ -1,0 +1,47 @@
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.*;
+import java.sql.*;
+/**
+ * Servlet implementation class AccessDatabase
+ */
+@WebServlet("/AccessDatabase")
+public class AccessDatabase extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title>Database Access</title>");
+		out.println("<style> table,th,td { border:1px solid black; width:25%; } th { background:#123456;color:#fff; }</style>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<table style=&#39;&#39><tr><th>Student Id</th><th>Student Name</th><th>Addres</th></tr>");
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost/varshitha","root", "1234");
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery("select * from student");
+			if (rs != null)
+			while (rs.next()){
+				out.println("<tr>");
+				out.println("<td>" + rs.getString(1)+"<td>");
+				out.println("<td>"+ rs.getString(2)+"<td>");
+				out.println("<td>" + rs.getString(3)+"<td>");
+				out.println("</tr>");
+			}
+			s.close();
+			con.close();
+		} catch (SQLException err) {
+			out.println("ERROR:" + err);
+		} catch (Exception err) {
+			out.println("ERROR: "+ err);
+		}
+		out.println("</table>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+}
