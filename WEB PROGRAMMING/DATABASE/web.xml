@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+<servlet>
+<servlet-name>DatabaseAccess</servlet-name>
+<servlet-class>AccessDatabase</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>DatabaseAccess</servlet-name>
+<url-pattern>/accessdata</url-pattern>
+</servlet-mapping>
+</web-app>
